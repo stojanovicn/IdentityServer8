@@ -12,10 +12,9 @@
 
 using FluentAssertions;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using IdentityServer8.Extensions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using System.Text.Json;
 using Xunit;
 
@@ -32,9 +31,7 @@ public class CustomTokenRequestValidatorClient
         var val = new TestCustomTokenRequestValidator();
         Startup.CustomTokenRequestValidator = val;
 
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }

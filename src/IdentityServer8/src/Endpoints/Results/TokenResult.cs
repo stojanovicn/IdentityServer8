@@ -53,6 +53,6 @@ internal class TokenResult : IEndpointResult
         public string scope { get; set; }
 
         [JsonExtensionData]
-        public Dictionary<string, object>? Custom { get; set; }
+        public Dictionary<string, object> Custom { get; set; }
     }
 }

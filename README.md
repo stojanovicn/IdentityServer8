@@ -1,5 +1,5 @@
 # Identity Server 8 update
-This project is a DotNet 8 revival of the Identity Server 4 and Identity Server 4 Admin UI, for Open ID Connect (OIDC) and OAuth, which was archived when .NET Core 3.1 reached end of support.
+This project is a DotNet 10 revival of the Identity Server 4 and Identity Server 4 Admin UI, for Open ID Connect (OIDC) and OAuth, which was archived when .NET Core 3.1 reached end of support.
 
 The latest verion, 8.0.4, is now available on NuGet. It contains [hundreds of security and bug fixes](https://github.com/alexhiggins732/IdentityServer8/blob/master/docs/CHANGELOG.md) from the original Identity Server 4 project.
 
@@ -9,15 +9,15 @@ It is recommend you update all previous version, 4 or 8, to the latest version t
 - [Support](https://identityserver8.readthedocs.io/en/latest/into/support.html)
 - [Gitter Chat](https://app.gitter.im/#/room/#identityserver8:gitter.im)
 
-[HigginsSoft.IdentityServer8 and Admin UI Nuget Packages](https://www.nuget.org/packages?q=HigginsSoft.IdentityServer8) are available here for use in DotNet 8.
+[HigginsSoft.IdentityServer8 and Admin UI Nuget Packages](https://www.nuget.org/packages?q=HigginsSoft.IdentityServer8) are available here for use in DotNet 10.
 
 All new development in the archived repository has moved to a paid commercial version in the [Duende Software](https://github.com/duendesoftware) organization. 
 
 See [here](https://duendesoftware.com/products/identityserver) for more details on the commerica version.
 
-This repository will be maintained for bug fixes and security updates for the .NET 8 version of Identity Server 4.
+This repository will be maintained for bug fixes and security updates for the .NET 10 version of Identity Server 4.
 
-The source code and unit tests will be updated to use the latest .NET 8 features and best practices.
+The source code and unit tests will be updated to use the latest .NET 10 features and best practices.
 
 Once the source code and unit tests are stabilized, the documentation will be updated to reflect the changes.
 
@@ -97,10 +97,61 @@ Active development happens on the main branch. This always contains the latest v
 
 ## How to build
 
-* [Install]([https://www.microsoft.com/net/download/core#/current](https://dotnet.microsoft.com/en-us/download#/current) the latest .NET 8 SDK
+* [Install](https://dotnet.microsoft.com/en-us/download) the latest .NET 10 SDK
 * Install Git
 * Clone this repo
-* Run `dotnet build src/identityserver8.slm` or `build.sh` in the root of the cloned repo.
+* Run `dotnet build src/IdentityServer8.sln -c Release` in the root of the cloned repo
+
+## Building Local NuGet Packages
+
+The solution is configured to automatically generate NuGet packages on build. All packages are output to the `./nuget/` directory.
+
+### Quick Start
+
+```bash
+# 1. Restore dependencies
+dotnet restore src/IdentityServer8.sln
+
+# 2. Build the solution (this automatically creates packages)
+dotnet build src/IdentityServer8.sln -c Release
+
+# 3. Packages are now available in ./nuget/
+```
+
+### Generated Packages
+
+The build will create the following NuGet packages (version 10.0.0-beta.1):
+
+- `HigginsSoft.IdentityServer8` - Main IdentityServer package
+- `HigginsSoft.IdentityServer8.Storage` - Storage interfaces and models
+- `HigginsSoft.IdentityServer8.EntityFramework` - Entity Framework integration
+- `HigginsSoft.IdentityServer8.EntityFramework.Storage` - EF Storage implementation
+- `HigginsSoft.IdentityServer8.AspNetIdentity` - ASP.NET Identity integration
+- `HigginsSoft.IdentityServer8.Security` - Security components
+
+Each package includes symbol packages (.snupkg) for debugging support.
+
+### Using Local Packages
+
+To use the local packages in your projects:
+
+```bash
+# Add the local nuget folder as a package source
+dotnet nuget add source /path/to/IdentityServer8/nuget -n local-identityserver8
+
+# Install packages in your project
+dotnet add package HigginsSoft.IdentityServer8 --version 10.0.0-beta.1
+```
+
+Or add to your `nuget.config`:
+
+```xml
+<configuration>
+  <packageSources>
+    <add key="local-identityserver8" value="./nuget" />
+  </packageSources>
+</configuration>
+```
 
 ## Documentation
 For project documentation, please visit [readthedocs](https://IdentityServer8.readthedocs.io).

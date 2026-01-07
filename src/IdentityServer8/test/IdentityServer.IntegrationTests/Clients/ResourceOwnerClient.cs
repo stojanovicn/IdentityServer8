@@ -13,9 +13,8 @@
 using FluentAssertions;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net;
@@ -32,9 +31,7 @@ public class ResourceOwnerClient
 
     public ResourceOwnerClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }

@@ -1,10 +1,10 @@
 <Project>
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <!--always bump /version.json and /docs/conf.py to <Version>X.Y.Z</Version>to keep nuget, build and document versions in sync-->
-        <Version>8.0.4</Version>
-		<IdentityServerVersion>8.0.4</IdentityServerVersion>
+        <Version>10.0.0-beta.1</Version>
+		<IdentityServerVersion>10.0.0-beta.1</IdentityServerVersion>
         <PackageId>HigginsSoft.$(MSBuildProjectName)</PackageId>
         <Title>$(MSBuildProjectName)</Title>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -15,7 +15,7 @@
         <NoWarn>$(NoWarn);CS0618;SYSLIB0023;SYSLIB0020;EF1001</NoWarn>
 
 		<SignAssembly>true</SignAssembly>
-		<AssemblyOriginatorKeyFile>$(SolutionDir)../key.snk</AssemblyOriginatorKeyFile>
+		<AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile>
 
 
         <Description>OpenID Connect and OAuth 2.0 Framework for ASP.NET Core</Description>
@@ -68,25 +68,24 @@
 
     <ItemGroup>
  
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(MicrosoftCodeAnalysisNetAnalyzersPackageVersion)" PrivateAssets="All" />
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="$(MicrosoftSourceLinkGitHubPackageVersion)" PrivateAssets="All" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="$(SolutionDir)../LICENSE">
+        <None Include="$(MSBuildThisFileDirectory)LICENSE">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
     </ItemGroup>
     <ItemGroup>
-        <None Include="$(SolutionDir)../README.md">
+        <None Include="$(MSBuildThisFileDirectory)README.md">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>
 
     </ItemGroup>
     <ItemGroup>
-        <None Include="$(SolutionDir)../icon.jpg">
+        <None Include="$(MSBuildThisFileDirectory)icon.jpg">
             <Pack>True</Pack>
             <PackagePath>\</PackagePath>
         </None>

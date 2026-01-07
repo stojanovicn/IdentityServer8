@@ -13,10 +13,9 @@
 using FluentAssertions;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using IdentityServer8.Extensions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -33,9 +32,7 @@ public class CustomTokenResponseClients
 
     public CustomTokenResponseClients()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<StartupWithCustomTokenResponses>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<StartupWithCustomTokenResponses>();
 
         _client = server.CreateClient();
     }

@@ -19,10 +19,9 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FluentAssertions;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Endpoints.Introspection.Setup;
 using IdentityServer8.Extensions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Endpoints.Introspection;
@@ -38,9 +37,7 @@ public class IntrospectionTests
 
     public IntrospectionTests()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _handler = server.CreateHandler();
         _client = server.CreateClient();

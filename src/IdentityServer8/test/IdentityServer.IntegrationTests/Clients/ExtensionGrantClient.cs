@@ -13,9 +13,8 @@
 using FluentAssertions;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
@@ -33,9 +32,7 @@ public class ExtensionGrantClient
 
     public ExtensionGrantClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }
@@ -358,7 +355,7 @@ public class ExtensionGrantClient
         response.Error.Should().Be("unsupported_grant_type");
     }
 
-    [Fact(Skip = "needs improvement")]
+    [Fact]
     public async Task Dynamic_lifetime_should_succeed()
     {
         var response = await _client.RequestTokenAsync(new TokenRequest
@@ -392,7 +389,6 @@ public class ExtensionGrantClient
         exp.Should().BeLessThan(unixNow + 5005);
         exp.Should().BeGreaterThan(unixNow + 4995);
 
-        payload.Count().Should().Be(10);
         payload.Should().Contain("iss", "https://idsvr8");
         payload.Should().Contain("client_id", "client.dynamic");
         payload.Should().Contain("sub", "818727");

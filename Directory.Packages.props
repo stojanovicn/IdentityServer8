@@ -162,7 +162,6 @@
     <PackageVersion Include="System.Configuration.ConfigurationManager" Version="$(AspnetVersion)" />
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.3.1" />
     <PackageVersion Include="System.Reactive" Version="6.0.0" />
-    <PackageVersion Include="System.Security.Principal.Windows" Version="5.0.0" />
     <PackageVersion Include="System.ServiceModel.Primitives" Version="$(AspnetVersion)" />
     <PackageVersion Include="WireMock.Net" Version="1.5.39" />
     <PackageVersion Include="xunit" Version="2.6.4" />
@@ -170,7 +169,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
-    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="$(AspnetVersion)" PrivateAssets="All" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="$(AspnetVersion)" PrivateAssets="All" />
   </ItemGroup>
 </Project>

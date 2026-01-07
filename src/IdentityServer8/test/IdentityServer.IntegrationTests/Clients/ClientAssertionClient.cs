@@ -15,8 +15,6 @@ using IdentityModel;
 using IdentityModel.Client;
 using IdentityServer.IntegrationTests.Clients.Setup;
 using IdentityServer.IntegrationTests.Common;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,9 +34,7 @@ public class ClientAssertionClient
 
     public ClientAssertionClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }

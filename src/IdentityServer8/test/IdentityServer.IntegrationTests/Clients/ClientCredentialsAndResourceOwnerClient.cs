@@ -12,9 +12,8 @@
 
 using FluentAssertions;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Xunit;
 
 namespace IdentityServer.IntegrationTests.Clients;
@@ -27,9 +26,7 @@ public class ClientCredentialsandResourceOwnerClient
 
     public ClientCredentialsandResourceOwnerClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }

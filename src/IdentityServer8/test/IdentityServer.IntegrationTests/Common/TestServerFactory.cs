@@ -10,16 +10,24 @@
  copies or substantial portions of the Software.
 */
 
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Hosting;
 
 namespace IdentityServer.IntegrationTests.Common;
 
-internal static class TestCert
+internal static class TestServerFactory
 {
-    public static X509Certificate2 Load()
+    public static TestServer Create<TStartup>() where TStartup : class
     {
-        var cert = Path.Combine(System.AppContext.BaseDirectory, "identityserver_testing.pfx");
-        return X509CertificateLoader.LoadPkcs12FromFile(cert, "password");
+        var host = new HostBuilder()
+            .ConfigureWebHost(webHost =>
+            {
+                webHost.UseTestServer();
+                webHost.UseStartup<TStartup>();
+            })
+            .Start();
+
+        return host.GetTestServer();
     }
 }

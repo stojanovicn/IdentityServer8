@@ -13,9 +13,8 @@
 using FluentAssertions;
 using IdentityModel;
 using IdentityModel.Client;
+using IdentityServer.IntegrationTests.Common;
 using IdentityServer.IntegrationTests.Clients.Setup;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using System.Net;
 using System.Text;
 using System.Text.Json;
@@ -31,9 +30,7 @@ public class ClientCredentialsClient
 
     public ClientCredentialsClient()
     {
-        var builder = new WebHostBuilder()
-            .UseStartup<Startup>();
-        var server = new TestServer(builder);
+        var server = TestServerFactory.Create<Startup>();
 
         _client = server.CreateClient();
     }
