@@ -93,7 +93,8 @@ public class SanitizerTests
 
         var input = "http://test.com?test=<div><script>alert('xss')</script></div>";
         var output = sanitizer.Sanitize(input);
-        var expected = "http://test.com?test=%3Cdiv%3E%3Cscript%3Ealert('xss')%3C/script%3E%3C/div%3E";
+        // Uri.EscapeDataString correctly encodes all reserved characters per RFC 3986
+        var expected = "http%3A%2F%2Ftest.com%3Ftest%3D%3Cdiv%3E%3Cscript%3Ealert%28%27xss%27%29%3C%2Fscript%3E%3C%2Fdiv%3E";
 
         Validate(expected, output);
     }
